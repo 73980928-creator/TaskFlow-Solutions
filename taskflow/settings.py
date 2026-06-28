@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'drf_spectacular',
     # Apps propias
     'users',
     'tasks',
@@ -63,6 +64,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'TaskFlow Solutions API',
+    'DESCRIPTION': 'API para gestionar tareas colaborativas en un equipo.',
+    'VERSION': '1.0.0',
 }
 
 MIDDLEWARE = [
@@ -97,30 +105,17 @@ WSGI_APPLICATION = 'taskflow.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-#
-# Por defecto usamos SQLite (no requiere instalacion adicional).
-# El enunciado permite base de datos relacional (MySQL/PostgreSQL) o
-# no relacional (MongoDB). Abajo se deja la configuracion de PostgreSQL
-# lista para usar: instalar psycopg2-binary y descomentar el bloque.
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'taskflow_db',
+        'USER': 'root',
+        'PASSWORD': 'jemy123',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-
-# --- Opcion PostgreSQL (relacional) ---
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'taskflow_db',
-#         'USER': 'taskflow_user',
-#         'PASSWORD': 'tu_password',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 
 
 # Password validation
